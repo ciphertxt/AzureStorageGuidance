@@ -12,7 +12,7 @@ When building applications that write logs such as event logs or collected telem
 
 ### Every write transaction is a charged event
 
-With every transaction to Azure Storage blobs being a billable (or charged) event costs in addition to raw storage costs, things can add up quickly if you are flushing logs from your collection service to Azure on a frequent basis. For example, if your logger is collecting data from a single node at a rate of once per second and you have 5,000 nodes all collecting data at the same time, you'll have:
+With every transaction to Azure Storage blobs being a billable (or charged) event in addition to raw storage costs (*e.g* consumption), things can add up quickly if you are flushing logs from your collection service to Azure on a frequent basis. For example, if your logger is collecting data from a single node at a rate of once per second and you have 5,000 nodes all collecting data at the same time, you'll have:
 
 - 300,000 transactions per minute
 - 18,000,000 transactions per hour
@@ -27,7 +27,7 @@ Using the number of transactions calculated previously, you can baseline cost ac
 | 432,000            | West US 2 | Hot              | $0.05        | $1.50             | $90.00          | $2,160.00      |
 | 432,000            | West US 2 | Premium          | $0.0175      | $0.525            | $31.50          | $756           |
 
-If the data is short-lived in Azure Storage - meaning you are using blobs as an intermediary layer or part of a broader data movement and analysis solution and as soon as data has been picked up by the next stage of your pipeline you delete it – you might consider writing directly to the Premium tier. While the price per GiB is higher for storage costs, the transaction prices are lower as demonstrated above. Azure also promises higher throughput and lower latency in the Premium tier.
+If the data is short-lived in Azure Storage - meaning you are using blobs as an intermediary layer or part of a broader data movement and analysis solution and as soon as data has been picked up by the next stage of your pipeline you delete it – you might consider writing directly to the Premium tier. While the price per GiB is higher for storage costs, the transaction prices are lower as demonstrated above - on the order of 65% less per day in the target region assuming consistent throughput. Azure also promises higher throughput and lower latency in the Premium tier.
 
 ### Frequent flushes and transaction limits
 
