@@ -38,9 +38,11 @@ Frequent flushes of the source buffer can also cause you to hit the transaction 
 
 The [Put Blob](https://docs.microsoft.com/rest/api/storageservices/put-blob) API allows you to commit an entire object, up to 256MiB, with one atomic API call. This is the simplest approach, assuming you want to place one file per PUT. If instead, you want to stream the data and eventually finalize the commit of a single file, you can use [Put Block](https://docs.microsoft.com/rest/api/storageservices/put-block) in combination with [Put Block List](https://docs.microsoft.com/rest/api/storageservices/put-block-list) to write larger files or write your files in smaller chunks.
 
-### You keep mentioning the API. What about using the SDK?
+### The API sounds complex. Don't you have an SDK?
 
-The SDK abstracts a lot of the API complexity for you, at the expense of hiding API level decisions like which path to take. For logging scenarios, it is typically recommended that you invoke the REST API directly as it will give you the most granular control.
+The storage client libraries (SDK) abstract away a lot of the API complexity for you at the expense of hiding API level decisions like which path to take for operations like Put Blob. For logging scenarios, it is typically recommended that you invoke the REST API directly as it will give you the most granular control, however if a storage client library is available in the same language you use for your logger, you may want to explorer if the client libraries will allow you the controls you need with the performance you require.
+
+Storage client libraries are available for multiple languages, including [.NET](https://docs.microsoft.com/dotnet/api/overview/azure/storage?view=azure-dotnet), [Java](https://docs.microsoft.com/java/api/overview/azure/storage), [Node.js](https://azure.github.io/azure-storage-node), [Python](https://azure-storage.readthedocs.io/), [PHP](https://azure.github.io/azure-storage-php/), and [Ruby](https://azure.github.io/azure-storage-ruby).
 
 ### Authentication to your storage account
 
