@@ -14,9 +14,11 @@ When building applications that write logs such as event logs or collected telem
 
 With every transaction to Azure Storage blobs being a billable (or charged) event in addition to raw storage costs (*e.g* consumption), things can add up quickly if you are flushing logs from your collection service to Azure on a frequent basis. For example, if your logger is collecting data from a single node at a rate of once per second and you have 5,000 nodes all collecting data at the same time, you'll have:
 
-- 300,000 transactions per minute
-- 18,000,000 transactions per hour
-- 432,000,000 transactions per day
+- 300,000 write transactions per minute
+- 18,000,000 write transactions per hour
+- 432,000,000 write transactions per day
+
+> Note: A write transaction in this context is a Put Blob or Put Block (plus Put Block List) request to the Azure Storage REST API.
 
 Cost of those transactions may influence your design as costs for write operations vary between storage tiers such as Hot and Premium. Lets use the current pricing for Azure blobs in Azure's West US 2 region for our example. Current pricing for write operations (per 10,000) in this region is $0.05 for the Hot tier and $0.0175 for Premium (see [Block blob pricing](https://azure.microsoft.com/pricing/details/storage/blobs/) for the most current pricing).
 
